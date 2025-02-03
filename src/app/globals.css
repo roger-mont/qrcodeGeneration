@@ -92,3 +92,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.rdp-weekdays {
+  width: 10px;
+  max-width: 10px;
+}
