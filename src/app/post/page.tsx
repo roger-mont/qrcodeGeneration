@@ -40,9 +40,16 @@ export default function Post() {
                 "start-date": format(date.from, "yyyy-MM-dd"),
                 "expiration-date": format(date.to, "yyyy-MM-dd"),
             }
-            console.log(data);
 
-            await qrCodeGeneration.post(data)
+            const response = await qrCodeGeneration.post(data)
+
+            if(response.status === 201) {
+                toast({
+                    title: "Sucesso",
+                    description: "QRCode Cadastrado com sucesso",
+                    duration: 4000,
+                })
+            }
         }
     };
 
