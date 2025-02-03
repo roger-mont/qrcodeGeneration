@@ -4,7 +4,8 @@ import * as qrcode from "qrcode"
 const apiToBase64 = async() => {
     try {
         const response = await qrCodeGeneration.get()
-    
+        // console.log(response);
+        
         const base64QRCode = await qrcode.toDataURL(response[0]["form-link"], {
             margin: 0,
             scale: 30,

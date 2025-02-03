@@ -6,7 +6,7 @@ const qrCodeGeneration = {
     get: async() => {
         try {
             const response = await api("/qrcode-generation?select=*")
-            console.log(response);
+            console.log(response.data);
             
             return findActualQRCode(response.data)
         } catch (error) {
@@ -21,18 +21,18 @@ const qrCodeGeneration = {
     }
 }
 
+
 const findActualQRCode = (objetos: qrCodeType[]) => {
-    const dataAtual = new Date();
+    const today = new Date(); // Data atual
+    const todayStr = today.toISOString().split('T')[0]; // Formatar para "YYYY-MM-DD"
+    console.log(objetos.filter((entry) => entry["start-date"] >= todayStr && todayStr <= entry["expiration-date"]));
+    
+    return objetos.filter(entry => {
+        const startDate = entry['start-date'];
+        const expirationDate = entry['expiration-date'];
 
-    return objetos.filter(objeto => {
-        const startDate = new Date(objeto['start-date']);
-        const expirationDate = new Date(objeto['expiration-date']);
-        
-        console.log("startDate",startDate);
-        console.log("expirationDate",expirationDate);
-        
-
-        return dataAtual >= startDate && dataAtual <= expirationDate;
+        // Verifica se a data de hoje está entre start-date e expiration-date
+        return todayStr >= startDate && todayStr <= expirationDate;
     });
 }
 

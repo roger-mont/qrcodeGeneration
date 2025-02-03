@@ -29,8 +29,10 @@ export default function Post() {
                 duration: 4000
             })
         } else {
-            console.log("DATE RANGE", {from: format(date.from, "yyyy-MM-dd"), to: format(date.to, "yyyy-MM-dd")});
-            console.log("LINK",link);
+            // console.log("DATE RANGE", {from: format(date.from, "yyyy-MM-dd"), to: format(date.to, "yyyy-MM-dd")});
+            // console.log("LINK",link);
+            console.log({"form-link": link, from: format(date.from, "yyyy-MM-dd"), to: format(date.to, "yyyy-MM-dd")});
+            
         }
         
     }
