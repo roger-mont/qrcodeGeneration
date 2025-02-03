@@ -50,7 +50,7 @@ export default function Post() {
         <div className="flex flex-col w-screen h-4/5 justify-center items-center">
             <header className="flex flex-row w-screen h-40 items-center justify-center">
                 <h1 className="flex text-nowrap text-5xl">
-                    Ocean Lab Fabricação Digital
+                    Ocean Manaus
                 </h1>
                 <svg
                     className="h-28"
