@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QR Code de Avaliação — Samsung Ocean Manaus
 
-## Getting Started
+Tela de projeção para o fim das aulas do Samsung Ocean Manaus: mostra, em tamanho grande, o QR code do formulário de avaliação da aula do dia. A equipe cadastra o link do formulário com o período de validade, e a tela escolhe sozinha o QR code vigente.
 
-First, run the development server:
+**Demo:** https://qrcode-generation-oceansamsung.vercel.app
+
+## Como funciona
+
+- **`/`** — busca no Supabase os formulários cadastrados, filtra o que está válido hoje (`start-date` ≤ hoje ≤ `expiration-date`) e gera o QR code no navegador com a biblioteca `qrcode`, nas cores da marca. Sem formulário vigente, avisa com um toast.
+- **`/post`** — formulário para cadastrar um novo link, com seletor de período (padrão: hoje até daqui a um mês).
+
+## Stack
+
+- Next.js 15 (App Router) · React 19 · TypeScript
+- Tailwind CSS · shadcn/ui (Radix) · date-fns · react-day-picker
+- Supabase (REST) via Axios
+- Deploy na Vercel
+
+## Rodar localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Estrutura
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/
+│   ├── page.tsx          # tela de projeção com o QR code vigente
+│   └── post/page.tsx     # cadastro de link + período
+├── service/              # cliente Supabase e regra do QR code vigente
+├── utils/qrcodeGenerator.ts
+└── components/ui/        # componentes shadcn/ui
+```
